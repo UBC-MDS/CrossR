@@ -9,7 +9,7 @@ CrossR is an open source project, and we welcome contributions of all kinds. By 
 - Fork, then clone the repository:
 
 ```	
-git clone github.com:your-username//CrossR.git
+git clone github.com:your-username/CrossR.git
 ```
 
 - Make sure the tests pass.
@@ -20,7 +20,14 @@ git clone github.com:your-username//CrossR.git
 
 - Make the tests pass.
 
-- Commit and push to your fork repository.
+- Commit your changes to your fork repository.
+
+- **ALWAYS** sync your fork to the original repository before sending a pull request. In order to this, follow the steps explained in the links below.
+
+	- [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
+	- [Syncing a fork](https://help.github.com/articles/syncing-a-fork/)
+
+- Push your changes to your fork repository.
 
 - Submit a pull request to all owners of the master repository.
 
@@ -28,7 +35,7 @@ git clone github.com:your-username//CrossR.git
 
 - Commit often throughout your work process.
 
-- Make sure your commits are clear and informative.
+- Make sure your commit messages are clear and informative.
 
 
 ## Attribution
