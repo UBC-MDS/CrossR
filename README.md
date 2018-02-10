@@ -16,7 +16,11 @@ __To be added.__
 
 Three main functions in `CrossR`:
 
+- `split_data()`: This function partitions data into `k`-fold and return the partitioned data. A random shuffling option is provided. `stratification` option for imbalanced representations will also be added if time allows.
 
+- `cross_validation()`: This function performs `k`-fold cross validation from partitioned data and a selected model. It returns the scores of each validation.
+
+- `plot()`: This function visualizes the cross-validation scores against the tuning hyper-parameters. For many hyper-parameters, it outputs a grid of plots for each hyper-parameter.
 
 
 ### Similar packages
