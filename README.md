@@ -1,27 +1,28 @@
 # CrossR
-A package for cross-validation in R
+The `CrossR` package (short for _Cross_-validation in _R_) is a set of functions for implementing cross-validation inside the R environment.  
 
-## Contributors
+### Contributors
 
 * Nazli Ozum Kafaee / @nazliozum
 * Daniel Raff / @raffrica
 * Shun Chi / @ShunChi100
 
-## Summary
+### Summary
+Cross-validation is an important procedure for model selection and hyper-parameter optimization. This package aims to provide a standardized pipeline to perform cross-validation for different modeling functions in R. In addition, easy visualization of the cross-validation results is provided.  
 
-CrossR is a package to do cross-validation. 
+__To be added.__
 
-## Functions
+### Functions
 
-There are three main functions in CrossR:
+Three main functions in `CrossR`:
 
-- split_data
+- `split_data()`: This function partitions data into `k`-fold and returns the partitioned indices. A random shuffling option is provided. `stratification` option for imbalanced representations will also be included if time allows.
 
-- cross_validation
+- `cross_validation()`: This function performs `k`-fold cross validation using the partitioned data and a selected model. It returns the scores of each validation.
 
-- plot
+- `plot()`: This function visualizes the cross-validation scores against the tuning hyper-parameters. For many hyper-parameters, it outputs a grid of plots with one plot for one hyper-parameter.
 
-	
-## Similar packages
+
+### Similar packages
 
 - `caret`
