@@ -29,4 +29,4 @@ Three main functions in `CrossR`:
 
 
 ### License
-[MIT License]
+[MIT License](https://github.com/ShunChi100/CrossR/blob/master/LICENSE)
