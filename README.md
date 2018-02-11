@@ -26,3 +26,7 @@ Three main functions in `CrossR`:
 ### Similar packages
 
 - `caret`
+
+
+### License
+[MIT License]
