@@ -1,0 +1,4 @@
+ls
+getwd()
+library(devtools)
+devtools::setup(".")
