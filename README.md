@@ -15,9 +15,9 @@ Cross-validation is an important technique used in model selection and hyper-par
 
 Three main functions in `CrossR`:
 
-- `split_data()`: This function partitions data into `k`-fold and returns the partitioned indices. A random shuffling option is provided. (`stratification` option for imbalanced representations will also be included if time allows).
+- `train_test_split()`: This function partitions data into `k`-fold and returns the partitioned indices. A random shuffling option is provided. (`stratification` option for imbalanced representations will also be included if time allows).
 
-- `cross_validation()`: This function performs `k`-fold cross validation using the partitioned data and a selected model. It returns the scores of each validation. Additional methods for corss validation will be implemented (such as "Leave-One-Out" if time allows). 
+- `cross_validation()`: This function performs `k`-fold cross validation using the partitioned data and a selected model. It returns the scores of each validation. Additional methods for corss validation will be implemented (such as "Leave-One-Out" if time allows).
 
 - `plot()`: This function visualizes the cross-validation scores against the tuning of hyper-parameters. For many hyper-parameters, it outputs a grid of plots with one plot for one hyper-parameter.
 

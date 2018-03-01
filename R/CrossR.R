@@ -1,3 +1,23 @@
+#' Split X and ydata into two portions according to input ratio.
+#'
+#' @param X features, a dataframe,
+#' @param y target, a dataframe.
+#' @param random_state A integer for seting the random seed.
+#' @param shuffle boolean, when TRUE, shuffle the data.
+#' @return split data into X_train, X_test, y_train, y_test.
+#' @examples
+#' X = data.frame(X = rnorm(100, 0, 10))
+#' y =data.frame(y = 2 * X$X + rnorm(100))
+#' X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.5)
+#'
+
+train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE){
+  # split data here
+
+}
+
+
+
 #' cross_validation
 #'
 #' @param model
@@ -13,6 +33,3 @@
 #' cross_validation(model = lm, X_train = X_iris, y_train = y_iris, k = 5)
 
 cross_validation <- function(model, X_train, y_train, k = 3) {}
-
-
-
