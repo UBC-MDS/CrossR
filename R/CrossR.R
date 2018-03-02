@@ -2,6 +2,7 @@
 #'
 #' @param X features, a dataframe,
 #' @param y target, a dataframe.
+#' @param test_size float between 0 and 1
 #' @param random_state A integer for seting the random seed.
 #' @param shuffle boolean, when TRUE, shuffle the data.
 #' @return split data into X_train, X_test, y_train, y_test.
@@ -20,10 +21,12 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 
 #' cross_validation
 #'
-#' @param model
+#' @param model string for model name(options --> "lm", "glm")
 #' @param X_train: features data frame
 #' @param y_train: target data frame
 #' @param k: number of splits
+#' @param shuffle: boolean
+#' @param random_state: integer
 #'
 #' @return vector of k scores
 #'
@@ -32,4 +35,4 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 #' @examples
 #' cross_validation(model = lm, X_train = X_iris, y_train = y_iris, k = 5)
 
-cross_validation <- function(model, X_train, y_train, k = 3) {}
+cross_validation <- function(model, X_train, y_train, k = 3, shuffle = TRUE, random_state = 0) {}
