@@ -1,4 +1,5 @@
-#' Split X and ydata into two portions according to input ratio.
+#' train_test_split: Split X and ydata into two portions according to input ratio.
+#' Default is for the split to include shuffling.
 #'
 #' @param X features, a dataframe,
 #' @param y target, a dataframe.
@@ -19,11 +20,12 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 
 
 
-#' cross_validation
+#' cross_validation: Implement k-fold cross validation, with specified k, returning the scores
+#' for each fold.
 #'
 #' @param model string for model name(options --> "lm", "glm")
-#' @param X_train: features data frame
-#' @param y_train: target data frame
+#' @param X: features data frame
+#' @param y: target data frame
 #' @param k: number of splits
 #' @param shuffle: boolean
 #' @param random_state: integer
@@ -33,6 +35,24 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 #' @export
 #'
 #' @examples
-#' cross_validation(model = lm, X_train = X_iris, y_train = y_iris, k = 5)
+#' cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
 
-cross_validation <- function(model, X_train, y_train, k = 3, shuffle = TRUE, random_state = 0) {}
+cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 0) {}
+
+
+#' plot: Using ggplot,
+#'
+#' @param model string for model name(options --> "lm", "glm")
+#' @param X: features data frame
+#' @param y: target data frame
+#' @param k: number of splits
+#' @param shuffle: boolean
+#' @param random_state: integer
+#'
+#' @return vector of k scores
+#'
+#' @export
+#'
+#' @examples
+#' cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
+
