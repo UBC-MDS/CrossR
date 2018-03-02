@@ -36,13 +36,22 @@ test_that("Datatype errors", {
 
 test_that("Value Errors", {
   expect_error(cross_validation("lm", X, y, k = 1), 'ValueError: k must be an integer 2 or greater')
+  expect_error(cross_validation("lm", X, y, k = 40), 'ValueError: k must be greater than # obs in X and y')
   })
 
 # Normal Cases
-test_that("k > number of observations in X and y",{
-  expect_equal(cross_validation("lm", X, y, k = 3), output_answers[1])
 
-  })
+## Output answers to be imported from scikit-learn python implementation
+
+test_that("when # obs in X and y modulo k is 0",{
+  expect_equal(cross_validation("lm", X, y, k = 3), output_answers[3])
+
+})
+
+test_that("when # obs in X and y modulo k is not 0",{
+  expect_equal(cross_validation("lm", X, y, k = 3), output_answers[4])
+
+})
 
 
 
