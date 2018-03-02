@@ -1,0 +1,54 @@
+context("Cross Validation")
+
+
+# This data to be replaced by common data for all tests
+X <-  matrix(c(rnorm(10), rnorm(10)), ncol = 2)
+y <-  2*X[,1] + 0.1*rnorm(10)
+
+# Output from scikit_learn's `cross_val_score` to cross-reference -- for now empty
+output_answers <- rep(0,10)
+
+# Function for Reference (to delete later)
+#cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 0)
+
+# Exceptional Cases
+test_that("Dataframes Match", {
+  X = data.frame(X = X)
+  y = data.frame(y = y)
+  y_2 = data.frame(y1 = y, y2 =y)
+  expect_error(cross_validation("lm", X, y_2), "DimensionError: y is more than one feature")
+
+  X_longer = rbind(X,X)
+  expect_error(cross_validation("lm", X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
+  })
+
+test_that("Datatype errors", {
+  X_matrix = as.matrix(X)
+  expect_error(cross_validation(X_matrix, y), 'TypeError: X and y must be dataframe')
+  expect_error(cross_validation("lm", X, y, k = '3'), 'TypeError: k must be an integer 2 or greater')
+  expect_error(cross_validation("lm", X, y, random_state = '1'), 'TypeError: random_state must be a nonnegative number')
+  expect_error(cross_validation("lm", X, y, random_state = -10), 'TypeError: random_state must be a nonnegative number')
+  expect_error(cross_validation("lm", X, y, shuffle = '1'), 'TypeError: shuffle must be TRUE or FALSE')
+  expect_error(cross_validation("lm", X, y, shuffle = 1), 'TypeError: shuffle must be TRUE or FALSE')
+  expect_error(cross_validation("lm", X, y, shuffle = 10), 'TypeError: shuffle must be TRUE or FALSE')
+
+})
+
+test_that("Value Errors", {
+  expect_error(cross_validation("lm", X, y, k = 1), 'ValueError: k must be an integer 2 or greater')
+  })
+
+# Normal Cases
+test_that("k > number of observations in X and y",{
+  expect_equal(cross_validation("lm", X, y, k = 3), output_answers[1])
+
+  })
+
+
+
+
+
+
+## White Box Testing - notes for future
+# Make sure that when constructing model within the function, that this inner model is the
+# same as when constructed on a named dataframe (that hasn't been split) outside
