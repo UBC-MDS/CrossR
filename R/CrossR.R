@@ -37,22 +37,25 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 #' @examples
 #' cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
 
-cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 0) {}
+cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 0) {
+  # apply cross validation here
+}
 
 
-#' plot: Using ggplot,
+
+#' summary_cv: Summary statistics of cross-validation scores
 #'
-#' @param model string for model name(options --> "lm", "glm")
-#' @param X: features data frame
-#' @param y: target data frame
-#' @param k: number of splits
-#' @param shuffle: boolean
-#' @param random_state: integer
+#' @param scores vector of cross-validation scores
 #'
-#' @return vector of k scores
+#' @return list of summary statistics consisting of mean, standard deviation, mode and median
 #'
 #' @export
 #'
 #' @examples
-#' cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
+#' cv_scores = c(0.97, 0.96, 0.98)
+#' summary_cv(scores = cv_scores)
+
+summary_cv <- function(scores){
+  # Get summary statistics here
+}
 
