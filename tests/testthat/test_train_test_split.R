@@ -7,6 +7,7 @@ y_vec <- data[,dim(data)[2]]
 y <- data.frame(y = y_vec)
 
 # Exceptional Cases
+
 test_that("Dimension of Dataframes Match", {
 
   y_2 = data.frame(y1 = y, y2 =y)
@@ -14,6 +15,8 @@ test_that("Dimension of Dataframes Match", {
 
   X_longer = rbind(X,X)
   expect_error(train_test_split(X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
+
+  expect_error(train_test_split(X[1:2,], y[1:2,]), "DimensionError: Sample size is less than 3, too small for CV")
 })
 
 test_that("Datatype errors", {
