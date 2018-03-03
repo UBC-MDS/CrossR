@@ -47,7 +47,7 @@ cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 
 #'
 #' @param scores vector of cross-validation scores
 #'
-#' @return vector of summary statistics consisting of mean, standard deviation, mode and median
+#' @return list of summary statistics consisting of mean, standard deviation, mode and median
 #'
 #' @export
 #'
@@ -56,6 +56,6 @@ cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 
 #' summary_cv(scores = cv_scores)
 
 summary_cv <- function(scores){
-  # Get summary statistics
+  # Get summary statistics here
 }
 
