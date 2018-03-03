@@ -1,5 +1,6 @@
 context("Testing train_test_split()")
 
+# read and assign the test input data
 data <- read.csv("../test_data/test_data_short.csv")
 
 X <- data[,-1]
@@ -16,19 +17,25 @@ test_that("Dimension of Dataframes Match", {
   X_longer = rbind(X,X)
   expect_error(train_test_split(X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
 
-  expect_error(train_test_split(X[1:2,], y[1:2,]), "DimensionError: Sample size is less than 3, too small for CV")
+  expect_error(train_test_split(X[1:2,], y[1:2,]), "DimensionError: Sample size is less than 3, too small for splitting")
 })
+
+
 
 test_that("Datatype errors", {
   expect_error(train_test_split(X, y_vec), 'TypeError: X and y must be dataframe')
-  expect_error(train_test_split(X, y, test_size = '0.25'), 'TypeError: test_size must be a number between 0 and 1')
-  expect_error(train_test_split(X, y, test_size = 10), 'TypeError: test_size must be a number between 0 and 1')
-  expect_error(train_test_split(X, y, test_size = 0.5, random_state = '1'), 'TypeError: random_state must be a nonnegative number')
-  expect_error(train_test_split(X, y, test_size = 0.5, random_state = -10), 'TypeError: random_state must be a nonnegative number')
+  expect_error(train_test_split(X, y, test_size = '0.25'), 'TypeError: test_size must be a number')
+  expect_error(train_test_split(X, y, test_size = 0.5, random_state = '1'), 'TypeError: random_state must be a number')
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = 10, shuffle = '1'), 'TypeError: shuffle must be TRUE or FALSE')
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = 10, shuffle = 1), 'TypeError: shuffle must be TRUE or FALSE')
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = 10, shuffle = 1.0), 'TypeError: shuffle must be TRUE or FALSE')
 })
+
+
+test_that("Value Errors", {
+  expect_error(train_test_split(X, y, test_size = 0.5, random_state = -10), 'ValueError: random_state must be nonnegative')
+  expect_error(train_test_split(X, y, test_size = 10), 'ValueError: test_size must be between 0 and 1')
+}
 
 # normal cases
 
