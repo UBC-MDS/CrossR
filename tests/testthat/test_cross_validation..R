@@ -1,9 +1,11 @@
 context("Cross Validation")
 
+# read and assign the test input data
+data <- read.csv("../test_data/test_data_short.csv")
 
-# This data to be replaced by common data for all tests
-X <-  matrix(c(rnorm(10), rnorm(10)), ncol = 2)
-y <-  2*X[,1] + 0.1*rnorm(10)
+X <- data[,-1]
+y_vec <- data[,dim(data)[2]]
+y <- data.frame(y = y_vec)
 
 # Output from scikit_learn's `cross_val_score` to cross-reference -- for now empty
 output_answers <- rep(0,10)
@@ -13,13 +15,13 @@ output_answers <- rep(0,10)
 
 # Exceptional Cases
 test_that("Dataframes Match", {
-  X = data.frame(X = X)
-  y = data.frame(y = y)
   y_2 = data.frame(y1 = y, y2 =y)
   expect_error(cross_validation("lm", X, y_2), "DimensionError: y is more than one feature")
 
   X_longer = rbind(X,X)
   expect_error(cross_validation("lm", X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
+
+  expect_error(cross_validation("lm", X[1:2,], y[1:2,]), "DimensionError: Sample size is less than 3, too small for CV")
   })
 
 test_that("Datatype errors", {
