@@ -7,8 +7,9 @@ X <- data[,-1]
 y_vec <- data[,dim(data)[2]]
 y <- data.frame(y = y_vec)
 
-# Output from scikit_learn's `cross_val_score` to cross-reference -- for now empty
-output_answers <- rep(0,10)
+# Output from Python scikit_learn's `cross_val_score` to cross-reference -- using data with 10 observations
+output_mod_0 <- c(-8.15594942e-01, -2.64049376e-01,  3.00616966e-01, -7.24669651e+00,-1.62102543e+03)
+output_mod_not_0 <- c(0.54076495, 0.72928636, 0.67929029)
 
 # Function for Reference (to delete later)
 #cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 0)
@@ -46,12 +47,12 @@ test_that("Value Errors", {
 ## Output answers to be imported from scikit-learn python implementation
 
 test_that("when # obs in X and y modulo k is 0",{
-  expect_equal(cross_validation("lm", X, y, k = 3), output_answers[3])
+  expect_equal(cross_validation("lm", X, y, k = 3), output_mod_not_0)
 
 })
 
 test_that("when # obs in X and y modulo k is not 0",{
-  expect_equal(cross_validation("lm", X, y, k = 3), output_answers[4])
+  expect_equal(cross_validation("lm", X, y, k = 3), output_mod_0)
 
 })
 
