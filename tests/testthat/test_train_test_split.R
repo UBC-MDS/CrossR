@@ -52,11 +52,10 @@ test_that("Output errors", {
   y_test <- data_split[[4]]
 
   # check the output types of elements in the list
-  expect_true(is.data.frame(mtcars))
-  expect_is(is.data.frame(X_train) ! is.atomic(X_train))
-  expect_is(is.data.frame(X_test) ! is.atomic(X_test))
-  expect_is(is.data.frame(y_train) ! is.atomic(y_train))
-  expect_is(is.data.frame(y_test) ! is.atomic(y_test))
+  expect_true(is.data.frame(X_train) | is.atomic(X_train))
+  expect_true(is.data.frame(X_test) | is.atomic(X_test))
+  expect_true(is.data.frame(y_train) | is.atomic(y_train))
+  expect_true(is.data.frame(y_test) | is.atomic(y_test))
   # check if the dimension equals
   expect_equal(dim(X)[1], dim(X_train)[1]+dim(X_test)[1])
   expect_equal(dim(y)[1], dim(y_train)[1]+dim(y_test)[1])
