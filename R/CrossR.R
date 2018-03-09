@@ -6,17 +6,54 @@
 #' @param test_size float between 0 and 1
 #' @param random_state A integer for seting the random seed.
 #' @param shuffle boolean, when TRUE, shuffle the data.
-#' @return split data into X_train, X_test, y_train, y_test.
+#' @return list of split data in the order X_train, X_test, y_train, y_test.
 #' @examples
 #' X = data.frame(X = rnorm(100, 0, 10))
 #' y =data.frame(y = 2 * X$X + rnorm(100))
-#' X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.5)
+#' split_data = train_test_split(X, y, test_size = 0.5)
 #'
 
 train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE){
-  # split data here
+  # assure input types:
+  if (!is.data.frame(X) | !is.data.frame(y)) stop('TypeError: X and y must be dataframe')
+  if (!is.numeric(test_size)) stop('TypeError: test_size must be a number')
+  if (!is.numeric(random_state)) stop('TypeError: random_state must be a number')
+  if (!is.logical(shuffle)) stop("TypeError: shuffle must be TRUE or FALSE")
 
+  # assure input values in range
+  if (!(test_size>=0 & test_size<=1)) stop('ValueError: test_size must be between 0 and 1')
+  if (!(random_state >= 0)) stop('ValueError: random_state must be nonnegative')
+
+
+  # assure dimension match between X and y
+  if (dim(y)[2]>1) stop("DimensionError: y is more than one feature")
+  if (dim(X)[1] != dim(y)[1]) stop("DimensionError: dim of X doesn't equal dim of y")
+  if (dim(X)[1] < 3) stop("DimensionError: Sample size is less than 3, too small for splitting")
+
+
+  # split data here
+  N <- dim(X)[1]
+  M <- round(N*test_size)
+
+  if (shuffle == TRUE){
+    set.seed(random_state)
+    indice <- sample(N, N)
+  }else{
+    indice <- 1:N
+  }
+
+  X_train <- X[indice[1:M],]
+  X_test <- X[indice[M+1:N],]
+  y_train <- y[indice[1:M],]
+  y_test <- y[indice[M+1:N],]
+
+  return(list(X_train = X_train, X_test = X_test, y_train = y_train, y_test = y_test))
 }
+
+
+
+
+
 
 
 
