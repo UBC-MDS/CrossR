@@ -1,8 +1,8 @@
 #' train_test_split: Split X and ydata into two portions according to input ratio.
 #' Default is for the split to include shuffling.
 #'
-#' @param X features, a dataframe,
-#' @param y target, a dataframe.
+#' @param X features, a dataframe or a vector,
+#' @param y target, a vector or a dataframe.
 #' @param test_size float between 0 and 1
 #' @param random_state A integer for seting the random seed.
 #' @param shuffle boolean, when TRUE, shuffle the data.
@@ -15,7 +15,8 @@
 
 train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE){
   # assure input types:
-  if (!is.data.frame(X) | !is.data.frame(y)) stop('TypeError: X and y must be dataframe')
+  if (!is.data.frame(X) & !is.atomic(X)) stop('TypeError: X must be a dataframe or an atomic vector')
+  if (!is.data.frame(y) & !is.atomic(y)) stop('TypeError: y must be a dataframe or an atomic vector')
   if (!is.numeric(test_size)) stop('TypeError: test_size must be a number')
   if (!is.numeric(random_state)) stop('TypeError: random_state must be a number')
   if (!is.logical(shuffle)) stop("TypeError: shuffle must be TRUE or FALSE")

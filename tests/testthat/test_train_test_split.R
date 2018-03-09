@@ -12,21 +12,9 @@ y <- data.frame(y = y_vec)
 
 # Exceptional Cases
 
-test_that("Dimension of Dataframes Match", {
-
-  y_2 = data.frame(y1 = y, y2 =y)
-  expect_error(train_test_split(X, y_2), "DimensionError: y is more than one feature")
-
-  X_longer = rbind(X,X)
-  expect_error(train_test_split(X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
-
-  expect_error(train_test_split(X[1:2,], data.frame(y[1:2,])), "DimensionError: Sample size is less than 3, too small for splitting")
-})
-
-
-
 test_that("Datatype errors", {
-  expect_error(train_test_split(X, y_vec), 'TypeError: X and y must be dataframe')
+  expect_error(train_test_split(list(c(1,2)), c(1,2)), 'TypeError: X must be a dataframe or an atomic vector')
+  expect_error(train_test_split(X, list(y_vec)), 'TypeError: y must be a dataframe or an atomic vector')
   expect_error(train_test_split(X, y, test_size = '0.25'), 'TypeError: test_size must be a number')
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = '1'), 'TypeError: random_state must be a number')
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = 10, shuffle = '1'), 'TypeError: shuffle must be TRUE or FALSE')
@@ -34,6 +22,13 @@ test_that("Datatype errors", {
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = 10, shuffle = 1.0), 'TypeError: shuffle must be TRUE or FALSE')
 })
 
+test_that("Dimension of Dataframes Match", {
+  y_2 = data.frame(y1 = y, y2 =y)
+  expect_error(train_test_split(X, y_2), "DimensionError: y is more than one feature")
+  X_longer = rbind(X,X)
+  expect_error(train_test_split(X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
+  expect_error(train_test_split(X[1:2,], data.frame(y[1:2,])), "DimensionError: Sample size is less than 3, too small for splitting")
+})
 
 test_that("Value Errors", {
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = -10), 'ValueError: random_state must be nonnegative')
@@ -57,10 +52,11 @@ test_that("Output errors", {
   y_test <- data_split[[4]]
 
   # check the output types of elements in the list
-  expect_is(X_train, 'data.frame')
-  expect_is(X_test, 'data.frame')
-  expect_is(y_train, 'data.frame')
-  expect_is(y_test, 'data.frame')
+  expect_true(is.data.frame(mtcars))
+  expect_is(is.data.frame(X_train) ! is.atomic(X_train))
+  expect_is(is.data.frame(X_test) ! is.atomic(X_test))
+  expect_is(is.data.frame(y_train) ! is.atomic(y_train))
+  expect_is(is.data.frame(y_test) ! is.atomic(y_test))
   # check if the dimension equals
   expect_equal(dim(X)[1], dim(X_train)[1]+dim(X_test)[1])
   expect_equal(dim(y)[1], dim(y_train)[1]+dim(y_test)[1])
