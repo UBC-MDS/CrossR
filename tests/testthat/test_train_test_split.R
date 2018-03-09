@@ -1,3 +1,6 @@
+#source("./R/CrossR.R")
+
+
 context("Testing train_test_split()")
 
 # read and assign the test input data
@@ -17,7 +20,7 @@ test_that("Dimension of Dataframes Match", {
   X_longer = rbind(X,X)
   expect_error(train_test_split(X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
 
-  expect_error(train_test_split(X[1:2,], y[1:2,]), "DimensionError: Sample size is less than 3, too small for splitting")
+  expect_error(train_test_split(X[1:2,], data.frame(y[1:2,])), "DimensionError: Sample size is less than 3, too small for splitting")
 })
 
 
@@ -35,11 +38,11 @@ test_that("Datatype errors", {
 test_that("Value Errors", {
   expect_error(train_test_split(X, y, test_size = 0.5, random_state = -10), 'ValueError: random_state must be nonnegative')
   expect_error(train_test_split(X, y, test_size = 10), 'ValueError: test_size must be between 0 and 1')
-}
+})
 
 # normal cases
 
-test_that("Output errors"), {
+test_that("Output errors", {
   # generate an output
   data_split <- train_test_split(X, y)
   # check the output type
@@ -61,4 +64,4 @@ test_that("Output errors"), {
   # check if the dimension equals
   expect_equal(dim(X)[1], dim(X_train)[1]+dim(X_test)[1])
   expect_equal(dim(y)[1], dim(y_train)[1]+dim(y_test)[1])
-}
+})
