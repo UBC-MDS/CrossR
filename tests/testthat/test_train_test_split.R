@@ -3,12 +3,12 @@
 
 context("Testing train_test_split()")
 
-# read and assign the test input data
-data <- read.csv("../test_data/test_data_short.csv")
-
-X <- data[,-1]
-y_vec <- data[,dim(data)[2]]
+# Generate test input data
+data <- gen_data(100)
+X <- data[[1]]
+y_vec <- data[[2]]
 y <- data.frame(y = y_vec)
+
 
 # Exceptional Cases
 
@@ -96,3 +96,8 @@ get_nrows <- function(data){
 #' X = data[[1]]
 #' y = data[[2]]
 #'
+gen_data <- function(N){
+  X <- data.frame(x0 = 1:N, x1 = rnorm(N))
+  y <- 1:N
+  return(list(X, y))
+}
