@@ -1,7 +1,37 @@
-#source("./R/CrossR.R")
-
-
 context("Testing train_test_split()")
+
+# helper functions
+#' get_nrows(): returns the number of rows of a dataframe or the length of an atomic vector.
+#'
+#' @param data a dataframe or an atomic vector,
+#' @return number of observations
+#' @examples
+#' nrows = get_nrows(1:10)
+#' nrows = get_nrows(mtcars)
+#'
+get_nrows <- function(data){
+  if (is.data.frame(data)){
+    return(dim(data)[1])
+  }else{
+    return(length(data))
+  }
+}
+
+# helper functions
+#' gen_data(N): returns test data X, y.
+#'
+#' @param N number of obervations
+#' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
+#' @examples
+#' data = gen_data(100)
+#' X <- data[[1]]
+#' y <- data[[2]]
+#'
+gen_data <- function(N){
+  X <- data.frame(x0 = 1:N, x1 = rnorm(N))
+  y <- 1:N
+  return(list(X, y))
+}
 
 # Generate test input data
 data <- gen_data(100)
@@ -23,15 +53,15 @@ test_that("Datatype errors", {
 })
 
 test_that("Dimension of Dataframes Match", {
-  y_2 = data.frame(y1 = y, y2 =y)
-  expect_error(train_test_split(X, y_2), "DimensionError: y is more than one feature")
+  y_2 = data.frame(y1 = y, y2 = y)
+  expect_error(train_test_split(X, y_2), "DimensionError: y must not have more than one column")
   X_longer = rbind(X,X)
-  expect_error(train_test_split(X_longer, y), "DimensionError: dim of X doesn't equal dim of y")
+  expect_error(train_test_split(X_longer, y), "DimensionError: dimension of X does not equal dimension of y")
   expect_error(train_test_split(X[1:2,], data.frame(y[1:2,])), "DimensionError: Sample size is less than 3, too small for splitting")
 })
 
 test_that("Value Errors", {
-  expect_error(train_test_split(X, y, test_size = 0.5, random_state = -10), 'ValueError: random_state must be nonnegative')
+  expect_error(train_test_split(X, y, test_size = 0.5, random_state = -10), 'ValueError: random_state must be a nonnegative number')
   expect_error(train_test_split(X, y, test_size = 10), 'ValueError: test_size must be between 0 and 1')
 })
 
@@ -65,39 +95,3 @@ test_that("Output errors", {
   expect_equal(get_nrows(y), get_nrows(y_train)+get_nrows(y_test))
 
 })
-
-
-
-# helper functions
-#' get_nrows(): returns the number of rows of a dataframe or the length of an atomic vector.
-#'
-#' @param data a dataframe or an atomic vector,
-#' @return number of observations
-#' @examples
-#' nrows = get_nrows(1:10)
-#' nrows = get_nrows(mtcars)
-#'
-get_nrows <- function(data){
-  if (is.data.frame(data)){
-    return(dim(data)[1])
-  }else{
-    return(length(data))
-  }
-}
-
-
-# helper functions
-#' gen_data(N): returns test data X, y.
-#'
-#' @param N number of obervations
-#' @return X - a dataframe, y - an numeric vector
-#' @examples
-#' data = gen_data(100)
-#' X = data[[1]]
-#' y = data[[2]]
-#'
-gen_data <- function(N){
-  X <- data.frame(x0 = 1:N, x1 = rnorm(N))
-  y <- 1:N
-  return(list(X, y))
-}
