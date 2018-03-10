@@ -62,9 +62,13 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   cv_scores = c()
 
   for (i in 1:k){
-    data_lm <- data.frame(X[indices_list[[k]],], y = y[indices_list[[k]],])
-    lm <- lm(y ~ ., data = data_lm)
-    cv_scores <- append(cv_scores, summary(lm)$r.squared)
+    train_data <- data.frame(X[indices_list[[k]],], y = y[indices_list[[k]],])
+    lm <- lm(y ~ ., data = train_data)
+    X_test <- subset(X, !(row.names(X) %in% indices_list[[k]]))
+    y_test <- y[which(!(row.names(y) %in% indices_list[[k]])),]
+    y_pred <- predict(lm, X_test)
+    r_squared <- cor(y_test, y_pred)^2
+    cv_scores <- append(cv_scores, r_squared)
   }
 
   return(cv_scores)
