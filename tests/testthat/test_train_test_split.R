@@ -56,7 +56,43 @@ test_that("Output errors", {
   expect_true(is.data.frame(X_test) | is.atomic(X_test))
   expect_true(is.data.frame(y_train) | is.atomic(y_train))
   expect_true(is.data.frame(y_test) | is.atomic(y_test))
-  # check if the dimension equals
-  expect_equal(dim(X)[1], dim(X_train)[1]+dim(X_test)[1])
-  expect_equal(dim(y)[1], dim(y_train)[1]+dim(y_test)[1])
+
+
+  # check if the dimension equals between split data and origianl data
+  # check X and X_train, X_test
+  expect_equal(get_nrows(X), get_nrows(X_train)+get_nrows(X_test))
+  # check y and y_train, y_test
+  expect_equal(get_nrows(y), get_nrows(y_train)+get_nrows(y_test))
+
 })
+
+
+
+# helper functions
+#' get_nrows(): returns the number of rows of a dataframe or the length of an atomic vector.
+#'
+#' @param data a dataframe or an atomic vector,
+#' @return number of observations
+#' @examples
+#' nrows = get_nrows(1:10)
+#' nrows = get_nrows(mtcars)
+#'
+get_nrows <- function(data){
+  if (is.data.frame(data)){
+    return(dim(data)[1])
+  }else{
+    return(length(data))
+  }
+}
+
+
+# helper functions
+#' gen_data(N): returns test data X, y.
+#'
+#' @param N number of obervations
+#' @return X - a dataframe, y - an numeric vector
+#' @examples
+#' data = gen_data(100)
+#' X = data[[1]]
+#' y = data[[2]]
+#'

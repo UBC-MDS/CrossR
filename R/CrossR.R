@@ -34,7 +34,8 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 
   # split data here
   N <- dim(X)[1]
-  M <- round(N*test_size)
+  N_train <- round(N*(1-test_size))
+  N_test <- N - N_train
 
   if (shuffle == TRUE){
     set.seed(random_state)
@@ -43,10 +44,11 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
     indice <- 1:N
   }
 
-  X_train <- X[indice[1:M],]
-  X_test <- X[indice[M+1:N],]
-  y_train <- y[indice[1:M],]
-  y_test <- y[indice[M+1:N],]
+  X_train <- X[indice[1:N_train],]
+  #print()
+  X_test <- X[na.exclude(indice[N_train+1:N]),]
+  y_train <- y[indice[1:N_train],]
+  y_test <- y[na.exclude(indice[N_train+1:N]),]
 
   return(list(X_train = X_train, X_test = X_test, y_train = y_train, y_test = y_test))
 }
