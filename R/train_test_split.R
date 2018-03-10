@@ -23,12 +23,12 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 
   # assure input values in range
   if (!(test_size>=0 & test_size<=1)) stop('ValueError: test_size must be between 0 and 1')
-  if (!(random_state >= 0)) stop('ValueError: random_state must be nonnegative')
+  if (!(random_state >= 0)) stop('ValueError: random_state must be a nonnegative number')
 
 
   # assure dimension match between X and y
-  if (dim(y)[2]>1) stop("DimensionError: y is more than one feature")
-  if (dim(X)[1] != dim(y)[1]) stop("DimensionError: dim of X doesn't equal dim of y")
+  if (dim(y)[2]>1) stop("DimensionError: y must not have more than one column")
+  if (dim(X)[1] != dim(y)[1]) stop("DimensionError: dimension of X does not equal dimension of y")
   if (dim(X)[1] < 3) stop("DimensionError: Sample size is less than 3, too small for splitting")
 
 
@@ -52,50 +52,3 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 
   return(list(X_train = X_train, X_test = X_test, y_train = y_train, y_test = y_test))
 }
-
-
-
-
-
-
-
-
-#' cross_validation: Implement k-fold cross validation, with specified k, returning the scores
-#' for each fold.
-#'
-#' @param model string for model name(options --> "lm", "glm")
-#' @param X: features data frame
-#' @param y: target data frame
-#' @param k: number of splits
-#' @param shuffle: boolean
-#' @param random_state: integer
-#'
-#' @return vector of k scores
-#'
-#' @export
-#'
-#' @examples
-#' cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
-
-cross_validation <- function(model, X, y, k = 3, shuffle = TRUE, random_state = 0) {
-  # apply cross validation here
-}
-
-
-
-#' summary_cv: Summary statistics of cross-validation scores
-#'
-#' @param scores vector of cross-validation scores
-#'
-#' @return list of summary statistics consisting of mean, standard deviation, mode and median
-#'
-#' @export
-#'
-#' @examples
-#' cv_scores = c(0.97, 0.96, 0.98)
-#' summary_cv(scores = cv_scores)
-
-summary_cv <- function(scores){
-  # Get summary statistics here
-}
-
