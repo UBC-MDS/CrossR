@@ -38,12 +38,12 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   split_indices <- function(X2, k2, shuffle2 = TRUE) {
     set.seed(random_state)
     length <- dim(X2)[1]
-    random_column <- sample(rep(1:k2, each=round(length/k2), len=length))
-    df <- data.frame(cbind(data_index = 1:length, groups = random_column))
+    splitting_column <- rep(1:k2, each=round(length/k2), len=length)
+    df <- data.frame(cbind(data_index = 1:length, groups = splitting_column))
     if (shuffle2 == FALSE){
-      df <- df[order(df$groups),]
-    } else {
       df
+    } else {
+      df$groups <- sample(df$groups, size=length, replace=FALSE)
     }
     indices_list <- list()
     for (number in 1:k2){
@@ -55,7 +55,7 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # Apply cross_validation here
   if (shuffle == TRUE){
     indices_list <- split_indices(X2 = X, k2 = k, shuffle2 = TRUE)
-  } else{
+  } else {
     indices_list <- split_indices(X2 = X, k2 = k, shuffle2 = FALSE)
   }
 
