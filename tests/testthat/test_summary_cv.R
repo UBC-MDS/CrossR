@@ -4,17 +4,14 @@ context("Testing summary_cv()")
 
 ## Checking inputs
 test_that("TypeErrors", {
-  expect_is(scores, 'vector')
-  expect_is(scores, 'atomic')
+  scores <- c(0.96, 0.97, 0.98)
+  expect_is(scores, c('numeric'))
+  expect_equal(is.vector(scores), TRUE)
+  expect_equal(is.atomic(scores), TRUE)
 
-  expect_error(summary_cv(scores = data.frame(c(0.96, 0.97, 0.98, 0.99))), "TypeError: `scores` must be a vector.")
+  expect_error(summary_cv(scores = data.frame(c(0.96, 0.97, 0.98, 0.99))), "TypeError: `scores` must be an atomic vector.")
   expect_error(summary_cv(scores = c(0.96, 0.97, list(0.98, 0.99))), "TypeError: `scores` must be an atomic vector.")
-  expect_error(summary_cv(scores = c(0.96, 0.97, "0.98"), "TypeError: Elements of `scores` must be numbers."))
-})
-
-test_that("DimensionErrors", {
-  expect_error(summary_cv(scores = c()), "DimensionError: `scores` cannot be of length zero.")
-
+  expect_error(summary_cv(scores = c(0.96, 0.97, "0.98"), "TypeError: `scores` must be an atomic vector."))
 })
 
 test_that("ValueErrors", {
@@ -42,10 +39,10 @@ test_that("Output is of correct type and dimension", {
   median_cv <- summary[[4]]
 
   # check the output types of elements in the list
-  expect_is(mean_cv, 'double')
-  expect_is(sd_cv, 'double')
-  expect_is(mode_cv, 'double')
-  expect_is(median_cv, 'double')
+  expect_is(mean_cv, 'numeric')
+  expect_is(sd_cv, 'numeric')
+  expect_is(mode_cv, 'numeric')
+  expect_is(median_cv, 'numeric')
 
 })
 
@@ -57,8 +54,8 @@ test_that("summary_cv outputs are of correct values", {
   summary <- summary_cv(cv_scores)
 
   # Compare to expected results
-  expect_equal(summary[[1]], 0.9666667)
-  expect_equal(summary[[2]], 0.01032796)
+  expect_equal(summary[[1]], 0.9666667, tolerance=1e-7)
+  expect_equal(summary[[2]], 0.01032796, tolerance=1e-7)
   expect_equal(summary[[3]], 0.97)
   expect_equal(summary[[4]], 0.97)
 
