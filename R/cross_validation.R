@@ -38,7 +38,7 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   split_indices <- function(X2, k2, shuffle2 = TRUE) {
     set.seed(random_state)
     length <- dim(X2)[1]
-    random_column <- sample(rep(1:k2, length))
+    random_column <- sample(rep(1:k2, each=round(length/k2), len=length))
     df <- data.frame(cbind(data_index = 1:length, groups = random_column))
     if (shuffle2 == FALSE){
       df <- df[order(df$groups),]
