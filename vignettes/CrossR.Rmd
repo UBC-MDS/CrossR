@@ -31,6 +31,13 @@ Three main functions in `CrossR`:
 
 ## Usage
 
+For installation of this package:
+```
+devtools::install_github("UBC-MDS/CrossR")
+```
+
+Usage examples:
+
 ```
 library(CrossR)
 
@@ -40,4 +47,3 @@ scores <- cross_validation(split_data['X_train'], split_data['y_train'], k = 3, 
 
 summary_cv(scores)
 ```
-

@@ -21,6 +21,33 @@ Three main functions in `CrossR`:
 
 - `summary_cv()`: This function outputs summary statistics(mean, standard deviation, mode, median) of cross-validation scores.
 
+### Installation and examples:
+To install the package:
+```
+devtools::install_github("UBC-MDS/CrossR")
+```
+
+Given `X` (explanatory variable) and `y` (response variable) as dataframes/atomic vectors, one can split the data
+
+```
+library(CrossR)
+split_data <- train_test_split(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE)
+
+# to assign split data into individual variables
+X_train = split_data[[1]]
+X_test = split_data[[2]]
+y_train = split_data[[3]]
+y_test = split_data[[4]]
+```
+
+To do cross-validation on `X`, `y` using the linear regression `lm()` model:
+```
+scores <- cross_validation(split_data['X_train'], split_data['y_train'])
+```
+To see the summary of scores:
+```
+summary_cv(scores)
+```
 
 ### Similar packages
 

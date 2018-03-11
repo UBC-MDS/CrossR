@@ -27,16 +27,17 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 
 
   # assure dimension match between X and y
-  if (dim(y)[2]>1) stop("DimensionError: y must not have more than one column")
-  if (dim(X)[1] != dim(y)[1]) stop("DimensionError: dimension of X does not equal dimension of y")
-  if (dim(X)[1] < 3) stop("DimensionError: Sample size is less than 3, too small for splitting")
+  if (get_ncols(y)>1) stop("DimensionError: y must not have more than one column")
+  if (get_nrows(X) != get_nrows(y)[1]) stop("DimensionError: dimension of X does not equal dimension of y")
+  if (get_nrows(X) < 3) stop("DimensionError: Sample size is less than 3, too small for splitting")
 
 
-  # split data here
-  N <- dim(X)[1]
+  # Get splitting index Number
+  N <- get_nrows(X)
   N_train <- round(N*(1-test_size))
   N_test <- N - N_train
 
+  # Get indices
   if (shuffle == TRUE){
     set.seed(random_state)
     indice <- sample(N, N)
@@ -44,11 +45,59 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
     indice <- 1:N
   }
 
-  X_train <- X[indice[1:N_train],]
-  #print()
-  X_test <- X[na.exclude(indice[N_train+1:N]),]
-  y_train <- y[indice[1:N_train],]
-  y_test <- y[na.exclude(indice[N_train+1:N]),]
+  # split X
+  if (is.data.frame(X)){
+    X_train <- X[indice[1:N_train],]
+    X_test <- X[na.exclude(indice[N_train+1:N]),]
+  }else{
+    X_train <- X[indice[1:N_train]]
+    X_test <- X[na.exclude(indice[N_train+1:N])]
+  }
+  # split y
+  if (is.data.frame(y)){
+    y_train <- y[indice[1:N_train],]
+    y_test <- y[na.exclude(indice[N_train+1:N]),]
+  }else{
+    y_train <- y[indice[1:N_train]]
+    y_test <- y[na.exclude(indice[N_train+1:N])]
+  }
 
+  # return results
   return(list(X_train = X_train, X_test = X_test, y_train = y_train, y_test = y_test))
 }
+
+
+## Helper functions
+#' get_nrows(): returns the number of rows of a dataframe or the length of an atomic vector.
+#'
+#' @param data a dataframe or an atomic vector,
+#' @return number of observations
+#' @examples
+#' nrows = get_nrows(1:10)
+#' nrows = get_nrows(mtcars)
+#'
+get_nrows <- function(data){
+  if (is.data.frame(data)){
+    return(dim(data)[1])
+  }else{
+    return(length(data))
+  }
+}
+
+## Helper functions
+#' get_ncols(): returns the number of columns of data.
+#'
+#' @param data a dataframe or an atomic vector,
+#' @return number of observations
+#' @examples
+#' ncols = get_ncols(1:10)
+#' ncols = get_ncols(mtcars)
+#'
+get_ncols <- function(data){
+  if (is.data.frame(data)){
+    return(dim(data)[2])
+  }else{
+    return(1)
+  }
+}
+
