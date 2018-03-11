@@ -30,19 +30,17 @@ test_that("Output is of correct type and dimension", {
   expect_is(summary, 'list')
 
   # Check the output length
-  expect_equal(length(summary), 4)
+  expect_equal(length(summary), 3)
 
   # assign outputs
   mean_cv <- summary[[1]]
-  sd_cv <- summary[[2]]
-  mode_cv <- summary[[3]]
-  median_cv <- summary[[4]]
+  median_cv <- summary[[2]]
+  sd_cv <- summary[[3]]
 
   # check the output types of elements in the list
   expect_is(mean_cv, 'numeric')
-  expect_is(sd_cv, 'numeric')
-  expect_is(mode_cv, 'numeric')
   expect_is(median_cv, 'numeric')
+  expect_is(sd_cv, 'numeric')
 
 })
 
@@ -55,8 +53,7 @@ test_that("summary_cv outputs are of correct values", {
 
   # Compare to expected results
   expect_equal(summary[[1]], 0.9666667, tolerance=1e-7)
-  expect_equal(summary[[2]], 0.01032796, tolerance=1e-7)
-  expect_equal(summary[[3]], 0.97)
-  expect_equal(summary[[4]], 0.97)
+  expect_equal(summary[[2]], 0.97)
+  expect_equal(summary[[3]], 0.01032796, tolerance=1e-7)
 
 })
