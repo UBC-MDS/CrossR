@@ -1,28 +1,20 @@
 Package: CrossR
-
-Title: What the Package Does (one line, title case)
-
-Version: 0.0.0.9000
-
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-
+Title: Cross validation
+Version: 1.0
+Authors@R: as.person(c(
+            "Nazli Ozum Kafaee <nazliozum@gmail.com> [aut, cre]",
+            "Daniel Raff <> [aut, cre]",
+            "Shun Chi <> [aut, cre]"
+            ))
 Description: The CrossR package (short for Cross-validation in R) is a set of functions for implementing cross-validation inside the R environment.
-
 Depends: R (>= 3.4.1)
-
 License: MIT
-
 Encoding: UTF-8
-
 LazyData: true
-
-Imports:
-  dplyr,
-  testthat
-
+Imports: dplyr
 Suggests:
+  testthat,
   knitr,
   rmarkdown
-
-VignetteBuilder:
-  knitr
+VignetteBuilder: knitr
+URL: https://github.com/UBC-MDS/CrossR
