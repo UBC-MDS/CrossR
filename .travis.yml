@@ -5,3 +5,7 @@ dist: trusty
 notifications:
     on_success: never
     on_failure: true
+
+sudo: required
+install:
+  - Rscript -e 'install.packages("dplyr")'
