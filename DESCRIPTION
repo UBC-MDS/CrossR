@@ -1,8 +1,8 @@
 Package: CrossR
 Title: CrossR
 Version: 1.0
-Authors@R: c(person("Nazli Ozum", "Kafaee", email = "nazliozum@gmail.com", role = c("aut")),
-  person("Shun", "Chi", role = c("aut", "cre")),
+Authors@R: c(person("Nazli Ozum", "Kafaee", email = "nazliozum@gmail.com", role = c("aut", "cre")),
+  person("Shun", "Chi", role = c("aut")),
   person("Daniel", "Raff", role = c("aut")))
 Description: The CrossR package (short for Cross-validation in R) is a set of functions for implementing cross-validation inside the R environment.
 Depends: R (>= 3.4.1)
