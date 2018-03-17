@@ -26,5 +26,5 @@ cross_validation: Implement k-fold cross validation, with specified k, returning
 for each fold.
 }
 \examples{
-cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
+cross_validation(X, y, k = 5)
 }
