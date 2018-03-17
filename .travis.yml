@@ -6,6 +6,6 @@ cache: packages
 #    on_success: never
 #    on_failure: true
 
-#sudo: required
+sudo: false
 #install:
 #  - Rscript -e 'install.packages("dplyr")'
