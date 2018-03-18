@@ -2,8 +2,8 @@ language: r
 cache: packages
 sudo: false
 
-r_github_packages:
-  - r-lib/covr
+r_packages:
+  - covr
 
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'library(covr); codecov()'
