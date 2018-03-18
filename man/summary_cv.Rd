@@ -10,7 +10,7 @@ summary_cv(scores)
 \item{scores}{vector of cross-validation scores}
 }
 \value{
-list of summary statistics consisting of mean, meadian, and standard deviation
+list of summary statistics consisting of mean, median, and standard deviation
 }
 \description{
 summary_cv: Summary statistics of cross-validation scores

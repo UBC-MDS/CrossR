@@ -14,7 +14,7 @@ train_test_split(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE)
 
 \item{test_size}{float between 0 and 1}
 
-\item{random_state}{A integer for seting the random seed.}
+\item{random_state}{A integer for setting the random seed.}
 
 \item{shuffle}{boolean, when TRUE, shuffle the data.}
 }

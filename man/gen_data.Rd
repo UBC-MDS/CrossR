@@ -7,7 +7,7 @@
 gen_data(N, perfect = FALSE)
 }
 \arguments{
-\item{N}{number of obervations}
+\item{N}{number of observations}
 
 \item{perfect}{get perfect linear data or not}
 }
