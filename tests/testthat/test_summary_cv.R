@@ -9,14 +9,19 @@ test_that("TypeErrors", {
   expect_equal(is.vector(scores), TRUE)
   expect_equal(is.atomic(scores), TRUE)
 
-  expect_error(summary_cv(scores = data.frame(c(0.96, 0.97, 0.98, 0.99))), "TypeError: `scores` must be an atomic vector.")
-  expect_error(summary_cv(scores = c(0.96, 0.97, list(0.98, 0.99))), "TypeError: `scores` must be an atomic vector.")
-  expect_error(summary_cv(scores = c(0.96, 0.97, "0.98"), "TypeError: `scores` must be an atomic vector."))
+  expect_error(summary_cv(scores = data.frame(c(0.96, 0.97, 0.98, 0.99))),
+               "TypeError: `scores` must be an atomic vector.")
+  expect_error(summary_cv(scores = c(0.96, 0.97, list(0.98, 0.99))),
+               "TypeError: `scores` must be an atomic vector.")
+  expect_error(summary_cv(scores = c(0.96, 0.97, "0.98"),
+                          "TypeError: `scores` must be an atomic vector."))
 })
 
 test_that("ValueErrors", {
-  expect_error(summary_cv(scores = c(0.96, 0.97, -0.98), "ValueError: `scores` must be a nonnegative number."))
-  expect_error(summary_cv(scores = c(0.96, 0.97, 1.98), "ValueError: `scores` must be between 0 and 1."))
+  expect_error(summary_cv(scores = c(0.96, 0.97, -0.98),
+                          "ValueError: `scores` must be a nonnegative number."))
+  expect_error(summary_cv(scores = c(0.96, 0.97, 1.98),
+                          "ValueError: `scores` must be between 0 and 1."))
 })
 
 

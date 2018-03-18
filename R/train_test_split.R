@@ -20,21 +20,31 @@
 
 train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE){
   # assure input types:
-  if (!is.data.frame(X) & !is.atomic(X)) stop('TypeError: X must be a dataframe or an atomic vector')
-  if (!is.data.frame(y) & !is.atomic(y)) stop('TypeError: y must be a dataframe or an atomic vector')
-  if (!is.numeric(test_size)) stop('TypeError: test_size must be a number')
-  if (!is.numeric(random_state)) stop('TypeError: random_state must be a number')
-  if (!is.logical(shuffle)) stop("TypeError: shuffle must be TRUE or FALSE")
+  if (!is.data.frame(X) & !is.atomic(X)) {
+    stop('TypeError: X must be a dataframe or an atomic vector')}
+  if (!is.data.frame(y) & !is.atomic(y)) {
+    stop('TypeError: y must be a dataframe or an atomic vector')}
+  if (!is.numeric(test_size)) {
+    stop('TypeError: test_size must be a number')}
+  if (!is.numeric(random_state)) {
+    stop('TypeError: random_state must be a number')}
+  if (!is.logical(shuffle)) {
+    stop("TypeError: shuffle must be TRUE or FALSE")}
 
   # assure input values in range
-  if (!(test_size>=0 & test_size<=1)) stop('ValueError: test_size must be between 0 and 1')
-  if (!(random_state >= 0)) stop('ValueError: random_state must be a nonnegative number')
+  if (!(test_size>=0 & test_size<=1)) {
+    stop('ValueError: test_size must be between 0 and 1')}
+  if (!(random_state >= 0)) {
+    stop('ValueError: random_state must be a nonnegative number')}
 
 
   # assure dimension match between X and y
-  if (get_ncols(y)>1) stop("DimensionError: y must not have more than one column")
-  if (get_nrows(X) != get_nrows(y)[1]) stop("DimensionError: dimension of X does not equal dimension of y")
-  if (get_nrows(X) < 3) stop("DimensionError: Sample size is less than 3, too small for splitting")
+  if (get_ncols(y)>1) {
+    stop("DimensionError: y must not have more than one column")}
+  if (get_nrows(X) != get_nrows(y)[1]) {
+    stop("DimensionError: dimension of X does not equal dimension of y")}
+  if (get_nrows(X) < 3) {
+    stop("DimensionError: Sample size is less than 3, too small for splitting")}
 
 
   # Get splitting index Number
@@ -68,7 +78,8 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
   }
 
   # return results
-  return(list(X_train = X_train, X_test = X_test, y_train = y_train, y_test = y_test))
+  return(list(X_train = X_train, X_test = X_test,
+              y_train = y_train, y_test = y_test))
 }
 
 
