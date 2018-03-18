@@ -14,7 +14,7 @@
 #' @examples
 #' cross_validation(X, y, k = 5)
 
-cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
+cross_validation_modified <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # assure input types:
   if (!(is.data.frame(X) | is.atomic(X))) stop('TypeError: X must be a dataframe or an atomic vector')
   if (!(is.data.frame(y) | is.atomic(y))) stop('TypeError: y must be a dataframe or an atomic vector')
