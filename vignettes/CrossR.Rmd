@@ -32,6 +32,7 @@ Three main functions in `CrossR`:
 ## Usage
 
 For installation of this package:
+
 ```{r}
 devtools::install_github("UBC-MDS/CrossR")
 ```
@@ -40,7 +41,6 @@ Usage examples:
 
 ```{r}
 library(CrossR)
-library(dplyr)
 
 data <- gen_data(100)
 X <- data.frame(data[[1]])

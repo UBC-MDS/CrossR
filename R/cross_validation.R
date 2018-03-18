@@ -13,7 +13,11 @@
 #' @export
 #'
 #' @examples
-#' cross_validation(X, y, k = 5)
+#' data <- gen_data(100)
+#' X <- data.frame(data[[1]])
+#' y_vec <- data[[2]]
+#' y <- data.frame(y = y_vec)
+#' cross_validation(X = X, y = y, k = 5)
 
 cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # assure input types:
