@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' cross_validation(model = lm, X = X_iris, y = y_iris, k = 5)
+#' cross_validation(X, y, k = 5)
 
 cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # assure input types:
@@ -73,4 +73,33 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 
   return(cv_scores)
 
+}
+
+
+# helper function
+#' gen_data(): returns data X, y for testing.
+#'
+#' @param N number of obervations
+#' @param perfect get perfect linear data or not
+#' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
+#' @examples
+#' data = gen_data(100)
+#' X <- data[[1]]
+#' y <- data[[2]]
+#'
+gen_data <- function(N, perfect = FALSE){
+  set.seed(123)
+  dat <- data.frame(X1 = rnorm(N),
+                    X2 = rnorm(N),
+                    X3 = rnorm(N),
+                    X4 = rnorm(N))
+  dat <- dat %>%
+    mutate(y = X1 + X2 + X3 + X4)
+  if (perfect == FALSE){
+    X <- dat[,c('X1', 'X2', 'X3')]
+  } else {
+    X <- dat[,c('X1', 'X2', 'X3', 'X4')]
+  }
+  y <- dat[,'y']
+  return(list(X, y))
 }

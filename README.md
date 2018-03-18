@@ -1,4 +1,9 @@
 # CrossR
+
+[![Build Status](https://travis-ci.org/UBC-MDS/CrossR.svg?branch=master)](https://travis-ci.org/UBC-MDS/CrossR)
+
+[![Coverage status](https://codecov.io/gh/Nazliozum/CrossR/branch/master/graph/badge.svg)](https://codecov.io/github/Nazliozum/CrossR?branch=master)
+
 The `CrossR` package (short for _Cross_-validation in _R_) is a set of functions for implementing cross-validation inside the R environment.  
 
 ### Contributors
