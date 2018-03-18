@@ -24,49 +24,34 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   if (!is.logical(shuffle)) stop("TypeError: shuffle must be TRUE or FALSE")
 
   # assure input dimensions:
-  if (is.data.frame(y) & dim(y)[2] > 1) stop('DimensionError: y must not have more than one column')
-  if (dim(X)[1] != dim(y)[1]) stop('DimensionError: dimension of X does not equal dimension of y')
-  if (dim(X)[1] < 3) stop('DimensionError: Sample size is less than 3, too small for CV')
+  if (get_ncols(y) > 1) stop('DimensionError: y must not have more than one column')
+  if (get_nrows(X) != get_nrows(y)) stop('DimensionError: dimension of X does not equal dimension of y')
+  if (get_nrows(X) < 3) stop('DimensionError: Sample size is less than 3, too small for CV')
 
   # assure input values in range
-  if (k > dim(X)[1]) stop('ValueError: value of k must be less than or equal to sample size')
+  if (k > get_nrows(X)) stop('ValueError: value of k must be less than or equal to sample size')
   if (k < 2) stop('ValueError: value of k must be an greater than or equal to 2')
   if (random_state < 0) stop('ValueError: random_state must be a nonnegative number')
 
-
-  # Helper function for cross-validation
-  split_indices <- function(X2, k2, shuffle2 = TRUE) {
-    set.seed(random_state)
-    length <- dim(X2)[1]
-    splitting_column <- rep(1:k2, each=round(length/k2), len=length)
-    df <- data.frame(cbind(data_index = 1:length, groups = splitting_column))
-    if (shuffle2 == FALSE){
-      df
-    } else {
-      df$groups <- sample(df$groups, size=length, replace=FALSE)
-    }
-    indices_list <- list()
-    for (number in 1:k2){
-      indices_list[[number]] <- df[df$group == number,]$data_index
-    }
-    return(indices_list)
-  }
-
-  # Apply cross_validation here
+  # get k-fold indices with fold-i as i, for example: 1,1,1,2,2,2,3,3,3
+  nrows <- get_nrows(X)
+  indices <- rep(1:k, each=round(nrows/k), len=nrows)
   if (shuffle == TRUE){
-    indices_list <- split_indices(X2 = X, k2 = k, shuffle2 = TRUE)
-  } else {
-    indices_list <- split_indices(X2 = X, k2 = k, shuffle2 = FALSE)
+    set.seed(random_state)
+    indices <- sample(indices, nrows, replace = FALSE)
   }
 
   cv_scores = c()
 
   for (i in 1:k){
-    train_data <- data.frame(X[indices_list[[k]],], y = y[indices_list[[k]],])
+    X_train <- subset(X, indices!=i)
+    y_train <- subset(y, indices!=i)
+    train_data <- data.frame(X = X_train, y = y_train)
     lm <- lm(y ~ ., data = train_data)
-    X_test <- subset(X, !(row.names(X) %in% indices_list[[k]]))
-    y_test <- y[which(!(row.names(y) %in% indices_list[[k]])),]
-    y_pred <- predict(lm, X_test)
+    X_test <- subset(X, indices==i)
+    y_test <- subset(y, indices==i)
+    test_data <- data.frame(X = X_test, y = y_test)
+    y_pred <- predict(lm, test_data)
     r_squared <- cor(y_test, y_pred)^2
     cv_scores <- append(cv_scores, r_squared)
   }
@@ -76,12 +61,18 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 }
 
 
+
+library(dplyr)
+
 # helper function
 #' gen_data(): returns data X, y for testing.
 #'
 #' @param N number of obervations
 #' @param perfect get perfect linear data or not
 #' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
+#'
+#' @export
+#'
 #' @examples
 #' data = gen_data(100)
 #' X <- data[[1]]
@@ -103,3 +94,37 @@ gen_data <- function(N, perfect = FALSE){
   y <- dat[,'y']
   return(list(X, y))
 }
+
+
+#' get_nrows(): returns the number of rows of a dataframe or the length of an atomic vector.
+#'
+#' @param data a dataframe or an atomic vector,
+#' @return number of observations
+#' @examples
+#' nrows = get_nrows(1:10)
+#' nrows = get_nrows(mtcars)
+#'
+get_nrows <- function(data){
+  if (is.data.frame(data)){
+    return(dim(data)[1])
+  }else{
+    return(length(data))
+  }
+}
+
+#' get_ncols(): returns the number of columns of data.
+#'
+#' @param data a dataframe or an atomic vector,
+#' @return number of observations
+#' @examples
+#' ncols = get_ncols(1:10)
+#' ncols = get_ncols(mtcars)
+#'
+get_ncols <- function(data){
+  if (is.data.frame(data)){
+    return(dim(data)[2])
+  }else{
+    return(1)
+  }
+}
+
