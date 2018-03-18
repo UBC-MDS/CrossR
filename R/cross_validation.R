@@ -1,6 +1,6 @@
 #' cross_validation: Implement k-fold cross validation, with specified k, returning the scores
 #' for each fold.
-#' @import stats
+#' @importFrom stats cor predict lm
 #'
 #' @param X features data frame
 #' @param y target data frame
@@ -21,22 +21,33 @@
 #'
 cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # assure input types:
-  if (!(is.data.frame(X) | is.atomic(X))) stop('TypeError: X must be a dataframe or an atomic vector')
-  if (!(is.data.frame(y) | is.atomic(y))) stop('TypeError: y must be a dataframe or an atomic vector')
-  if (!is.numeric(k)) stop('TypeError: value of k must be a number')
+  if (!(is.data.frame(X) | is.atomic(X))) {
+    stop('TypeError: X must be a dataframe or an atomic vector')}
+  if (!(is.data.frame(y) | is.atomic(y))) {
+    stop('TypeError: y must be a dataframe or an atomic vector')}
+  if (!is.numeric(k)) {
+    stop('TypeError: value of k must be a number')}
   #if (round(k) != k) stop('TypeError: value of k must be an integer')
-  if (!is.numeric(random_state)) stop('TypeError: random_state must be a number')
-  if (!is.logical(shuffle)) stop("TypeError: shuffle must be TRUE or FALSE")
+  if (!is.numeric(random_state)) {
+    stop('TypeError: random_state must be a number')}
+  if (!is.logical(shuffle)) {
+    stop("TypeError: shuffle must be TRUE or FALSE")}
 
   # assure input dimensions:
-  if (get_ncols(y) > 1) stop('DimensionError: y must not have more than one column')
-  if (get_nrows(X) != get_nrows(y)) stop('DimensionError: dimension of X does not equal dimension of y')
-  if (get_nrows(X) < 3) stop('DimensionError: Sample size is less than 3, too small for CV')
+  if (get_ncols(y) > 1) {
+    stop('DimensionError: y must not have more than one column')}
+  if (get_nrows(X) != get_nrows(y)) {
+    stop('DimensionError: dimension of X does not equal dimension of y')}
+  if (get_nrows(X) < 3) {
+    stop('DimensionError: Sample size is less than 3, too small for CV')}
 
   # assure input values in range
-  if (k > get_nrows(X)) stop('ValueError: value of k must be less than or equal to sample size')
-  if (k < 2) stop('ValueError: value of k must be an greater than or equal to 2')
-  if (random_state < 0) stop('ValueError: random_state must be a nonnegative number')
+  if (k > get_nrows(X)) {
+    stop('ValueError: value of k must be less than or equal to sample size')}
+  if (k < 2) {
+    stop('ValueError: value of k must be an greater than or equal to 2')}
+  if (random_state < 0) {
+    stop('ValueError: random_state must be a nonnegative number')}
 
   # get k-fold indices with fold-i as i, for example: 1,1,1,2,2,2,3,3,3
   nrows <- get_nrows(X)
@@ -46,7 +57,7 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
     indices <- sample(indices, nrows, replace = FALSE)
   }
 
-  cv_scores = c()
+  cv_scores <- c()
 
   for (i in 1:k){
     X_train <- subset(X, indices!=i)
@@ -67,13 +78,13 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 
 
 
-library(dplyr)
 
 # helper function
 #' gen_data(): returns data X, y for testing.
-#' @import dplyr stats
+#' @import dplyr
+#' @importFrom stats rnorm
 #'
-#' @param N number of obervations
+#' @param N number of observations
 #' @param perfect get perfect linear data or not
 #' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
 #'

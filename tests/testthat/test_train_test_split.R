@@ -95,3 +95,17 @@ test_that("Output errors", {
   expect_equal(get_nrows(y), get_nrows(y_train)+get_nrows(y_test))
 
 })
+
+
+test_that("shuffle set to be FALSE not working", {
+  data_split <- train_test_split(1:10, 1:10, shuffle = FALSE)
+  # assign outputs
+  X_train <- data_split[[1]]
+  X_test <- data_split[[2]]
+  y_train <- data_split[[3]]
+  y_test <- data_split[[4]]
+  expect_equivalent(X_train, 1:8)
+  expect_equivalent(X_test, 9:10)
+  expect_equivalent(y_train, 1:8)
+  expect_equivalent(y_test, 9:10)
+})
