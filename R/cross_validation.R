@@ -76,6 +76,9 @@ library(dplyr)
 #' @param N number of obervations
 #' @param perfect get perfect linear data or not
 #' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
+#'
+#' @export
+#'
 #' @examples
 #' data = gen_data(100)
 #' X <- data[[1]]
