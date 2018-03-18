@@ -13,7 +13,11 @@
 #' @export
 #'
 #' @examples
-#' cross_validation(X, y, k = 5)
+#' data <- gen_data(100)
+#' X <- data.frame(data[[1]])
+#' y_vec <- data[[2]]
+#' y <- data.frame(y = y_vec)
+#' cross_validation(X = X, y = y, k = 5)
 
 cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # assure input types:
@@ -63,7 +67,7 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 
 
 
-
+library(dplyr)
 
 # helper function
 #' gen_data(): returns data X, y for testing.
@@ -72,16 +76,12 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 #' @param N number of obervations
 #' @param perfect get perfect linear data or not
 #' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
-#'
-#' @export
-#'
 #' @examples
 #' data = gen_data(100)
 #' X <- data[[1]]
 #' y <- data[[2]]
 #'
 gen_data <- function(N, perfect = FALSE){
-  devtools::use_package("dplyr")
   set.seed(123)
   dat <- data.frame(X1 = rnorm(N),
                     X2 = rnorm(N),
@@ -130,4 +130,3 @@ get_ncols <- function(data){
     return(1)
   }
 }
-
