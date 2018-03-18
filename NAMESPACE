@@ -3,3 +3,5 @@
 export(cross_validation)
 export(summary_cv)
 export(train_test_split)
+import(dplyr)
+import(stats)
