@@ -32,7 +32,7 @@ cross_validation_modified <- function(X, y, k = 3, shuffle = TRUE, random_state 
   if (k > get_nrows(X)) stop('ValueError: value of k must be less than or equal to sample size')
   if (k < 2) stop('ValueError: value of k must be an greater than or equal to 2')
   if (random_state < 0) stop('ValueError: random_state must be a nonnegative number')
-  
+
   # get k-fold indices with fold-i as i, for example: 1,1,1,2,2,2,3,3,3
   nrows <- get_nrows(X)
   indices <- rep(1:k, each=round(nrows/k), len=nrows)
@@ -70,6 +70,9 @@ library(dplyr)
 #' @param N number of obervations
 #' @param perfect get perfect linear data or not
 #' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
+#'
+#' @export
+#'
 #' @examples
 #' data = gen_data(100)
 #' X <- data[[1]]
