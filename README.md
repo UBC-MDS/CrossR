@@ -26,6 +26,19 @@ Three main functions in `CrossR`:
 
 - `summary_cv()`: This function outputs summary statistics(mean, standard deviation, mode, median) of cross-validation scores.
 
+Additionally, we've built a helper function that generates data for the above functions:
+
+- `gen_data()`: This function generates a list of X and y data that can be passed in to `train_test_split()` or `cross_validation()`  
+
+It can be used as follows:
+
+```
+data <- gen_data(100)
+X <- data.frame(data[[1]])
+y_vec <- data[[2]]
+y <- data.frame(y = y_vec)
+```
+
 ### Installation and examples:
 To install the package:
 ```

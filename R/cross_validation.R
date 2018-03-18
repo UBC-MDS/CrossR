@@ -62,7 +62,7 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 
 
 
-library(dplyr)
+
 
 # helper function
 #' gen_data(): returns data X, y for testing.
@@ -79,6 +79,7 @@ library(dplyr)
 #' y <- data[[2]]
 #'
 gen_data <- function(N, perfect = FALSE){
+  library(dplyr)
   set.seed(123)
   dat <- data.frame(X1 = rnorm(N),
                     X2 = rnorm(N),
