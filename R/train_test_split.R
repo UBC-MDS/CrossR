@@ -7,6 +7,9 @@
 #' @param random_state A integer for seting the random seed.
 #' @param shuffle boolean, when TRUE, shuffle the data.
 #' @return list of split data in the order X_train, X_test, y_train, y_test.
+#'
+#' @export
+#'
 #' @examples
 #' X = data.frame(X = rnorm(100, 0, 10))
 #' y =data.frame(y = 2 * X$X + rnorm(100))

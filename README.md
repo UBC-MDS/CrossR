@@ -20,7 +20,7 @@ Cross-validation is an important technique used in model selection and hyper-par
 
 Three main functions in `CrossR`:
 
-- `train_test_split()`: This function partitions data into `k`-fold and returns the partitioned indices. A random shuffling option is provided. (`stratification` option for imbalanced representations will also be included if time allows).
+- `train_test_split()`: This function partitions data into `k`-fold and returns the partitioned objects. A random shuffling option is provided.
 
 - `cross_validation()`: This function performs `k`-fold cross validation using the partitioned data and a selected model. It returns the scores of each validation. Additional methods for corss validation will be implemented (such as "Leave-One-Out" if time allows).
 
@@ -47,7 +47,7 @@ y_test = split_data[[4]]
 
 To do cross-validation on `X`, `y` using the linear regression `lm()` model:
 ```
-scores <- cross_validation(split_data['X_train'], split_data['y_train'])
+scores <- cross_validation(split_data[['X_train']], split_data[['y_train']])
 ```
 To see the summary of scores:
 ```
