@@ -75,6 +75,9 @@ train_test_split <- function(X, y, test_size = 0.25, random_state = 0, shuffle =
 #'
 #' @param data a dataframe or an atomic vector,
 #' @return number of observations
+#'
+#' @export
+#'
 #' @examples
 #' nrows = get_nrows(1:10)
 #' nrows = get_nrows(mtcars)
@@ -92,6 +95,9 @@ get_nrows <- function(data){
 #'
 #' @param data a dataframe or an atomic vector,
 #' @return number of observations
+#'
+#' @export
+#'
 #' @examples
 #' ncols = get_ncols(1:10)
 #' ncols = get_ncols(mtcars)

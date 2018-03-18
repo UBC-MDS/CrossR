@@ -106,6 +106,9 @@ gen_data <- function(N, perfect = FALSE){
 #'
 #' @param data a dataframe or an atomic vector,
 #' @return number of observations
+#'
+#' @export
+#'
 #' @examples
 #' nrows = get_nrows(1:10)
 #' nrows = get_nrows(mtcars)
@@ -122,6 +125,9 @@ get_nrows <- function(data){
 #'
 #' @param data a dataframe or an atomic vector,
 #' @return number of observations
+#'
+#' @export
+#'
 #' @examples
 #' ncols = get_ncols(1:10)
 #' ncols = get_ncols(mtcars)
