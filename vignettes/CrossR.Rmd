@@ -41,9 +41,14 @@ Usage examples:
 ```{r}
 library(CrossR)
 
+data <- gen_data(100)
+X <- data.frame(data[[1]])
+y_vec <- data[[2]]
+y <- data.frame(y = y_vec)
+
 split_data <- train_test_split(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE)
 
-scores <- cross_validation(split_data['X_train'], split_data['y_train'], k = 3, shuffle = TRUE, random_state = 0)
+scores <- cross_validation(split_data[['X_train']], split_data[['y_train']], k = 3, shuffle = TRUE, random_state = 0)
 
 summary_cv(scores)
 ```
