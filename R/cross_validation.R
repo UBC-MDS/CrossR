@@ -2,11 +2,11 @@
 #' for each fold.
 #' @importFrom stats cor predict lm
 #'
-#' @param X: features data frame
-#' @param y: target data frame
-#' @param k: number of splits
-#' @param shuffle: boolean
-#' @param random_state: integer
+#' @param X features data frame
+#' @param y target data frame
+#' @param k number of splits
+#' @param shuffle boolean
+#' @param random_state integer
 #'
 #' @return vector of k scores
 #'
@@ -18,7 +18,7 @@
 #' y_vec <- data[[2]]
 #' y <- data.frame(y = y_vec)
 #' cross_validation(X = X, y = y, k = 5)
-
+#'
 cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
   # assure input types:
   if (!(is.data.frame(X) | is.atomic(X))) {
