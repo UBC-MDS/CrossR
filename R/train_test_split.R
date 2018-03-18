@@ -1,10 +1,12 @@
 #' train_test_split: Split X and ydata into two portions according to input ratio.
 #' Default is for the split to include shuffling.
 #'
+#' @importFrom stats na.exclude
+#'
 #' @param X features, a dataframe or a vector,
 #' @param y target, a vector or a dataframe.
 #' @param test_size float between 0 and 1
-#' @param random_state A integer for seting the random seed.
+#' @param random_state A integer for setting the random seed.
 #' @param shuffle boolean, when TRUE, shuffle the data.
 #' @return list of split data in the order X_train, X_test, y_train, y_test.
 #'
