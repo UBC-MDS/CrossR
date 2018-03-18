@@ -1,5 +1,6 @@
 #' cross_validation: Implement k-fold cross validation, with specified k, returning the scores
 #' for each fold.
+#' @import stats
 #'
 #' @param X: features data frame
 #' @param y: target data frame
@@ -66,6 +67,7 @@ cross_validation <- function(X, y, k = 3, shuffle = TRUE, random_state = 0) {
 
 # helper function
 #' gen_data(): returns data X, y for testing.
+#' @import dplyr stats
 #'
 #' @param N number of obervations
 #' @param perfect get perfect linear data or not
