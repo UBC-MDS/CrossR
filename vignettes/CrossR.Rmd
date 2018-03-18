@@ -32,13 +32,13 @@ Three main functions in `CrossR`:
 ## Usage
 
 For installation of this package:
-```
+```{r}
 devtools::install_github("UBC-MDS/CrossR")
 ```
 
 Usage examples:
 
-```
+```{r}
 library(CrossR)
 
 split_data <- train_test_split(X, y, test_size = 0.25, random_state = 0, shuffle = TRUE)
