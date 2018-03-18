@@ -1,35 +1,6 @@
 context("Cross Validation")
 library(dplyr)
 
-#' # helper function
-#' #' gen_data(): returns data X, y for testing.
-#' #'
-#' #' @param N number of obervations
-#' #' @param perfect get perfect linear data or not
-#' #' @return a list consisting of X and y (X - a dataframe, y - a numeric vector)
-#' #' @examples
-#' #' data = gen_data(100)
-#' #' X <- data[[1]]
-#' #' y <- data[[2]]
-#' #'
-#' gen_data <- function(N, perfect = FALSE){
-#'   set.seed(123)
-#'   dat <- data.frame(X1 = rnorm(N),
-#'                     X2 = rnorm(N),
-#'                     X3 = rnorm(N),
-#'                     X4 = rnorm(N))
-#'   dat <- dat %>%
-#'     mutate(y = X1 + X2 + X3 + X4)
-#'   if (perfect == FALSE){
-#'     X <- dat[,c('X1', 'X2', 'X3')]
-#'   } else {
-#'     X <- dat[,c('X1', 'X2', 'X3', 'X4')]
-#'   }
-#'   y <- dat[,'y']
-#'   return(list(X, y))
-#' }
-
-
 # Generate test input data
 data <- gen_data(100)
 X <- data[[1]]
@@ -80,11 +51,11 @@ test_that("Value errors", {
 ## Output answers to be imported from scikit-learn python implementation
 
 test_that("when # obs in X and y modulo k is 0",{
-  expect_equal(cross_validation(X_p, y_p, k = 3), perfect_output_mod_not_0)
+  expect_equal(cross_validation(X_p, y_p_vec, k = 3), perfect_output_mod_not_0)
 
 })
 
 test_that("when # obs in X and y modulo k is not 0",{
-  expect_equal(cross_validation(X_p, y_p, k = 5), perfect_output_mod_0)
+  expect_equal(cross_validation(X_p, y_p_vec, k = 5), perfect_output_mod_0)
 
 })
